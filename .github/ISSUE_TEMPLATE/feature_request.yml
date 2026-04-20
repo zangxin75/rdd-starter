@@ -1,0 +1,72 @@
+name: RDD Feature Request
+description: Submit a feature request using RDD (Requirement-Driven Development) format
+labels: ["enhancement", "rdd"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## RDD Feature Request
+        Please describe the feature with concrete inputs and expected outputs.
+        This helps us generate requirement tables and tests automatically.
+
+  - type: textarea
+    id: feature-description
+    attributes:
+      label: Feature Description
+      description: What should this feature do?
+      placeholder: "e.g., User authentication with username and password"
+    validations:
+      required: true
+
+  - type: textarea
+    id: normal-scenarios
+    attributes:
+      label: Normal Scenarios (Happy Path)
+      description: What should happen with valid inputs?
+      placeholder: |
+        e.g.,
+        1. User enters correct username "alice" and password "pass123" → login succeeds
+        2. User enters correct username "bob" and password "secret" → login succeeds
+      value: |
+        | Scenario | Input | Expected Output |
+        |----------|-------|-----------------|
+        |          |       |                 |
+        |          |       |                 |
+    validations:
+      required: true
+
+  - type: textarea
+    id: boundary-scenarios
+    attributes:
+      label: Boundary Scenarios
+      description: What happens at edge cases? (empty, zero, max, etc.)
+      placeholder: |
+        e.g., Empty username "" → error "username cannot be empty"
+      value: |
+        | Scenario | Input | Expected Output |
+        |----------|-------|-----------------|
+        |          |       |                 |
+    validations:
+      required: true
+
+  - type: textarea
+    id: error-scenarios
+    attributes:
+      label: Error Scenarios
+      description: What happens with invalid inputs or error conditions?
+      placeholder: |
+        e.g., Wrong password → error "incorrect password"
+      value: |
+        | Scenario | Input | Expected Output |
+        |----------|-------|-----------------|
+        |          |       |                 |
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: Any other information, dependencies, or constraints?
+    validations:
+      required: false

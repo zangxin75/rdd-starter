@@ -1,0 +1,50 @@
+name: RDD Tests
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.12"]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Check RDD requirement coverage
+        run: |
+          echo "=== RDD Requirement Files ==="
+          find docs/requirements -name 'req_*.md' -exec ls -la {} + 2>/dev/null || echo "No requirement files found"
+          echo ""
+          echo "=== Test Files ==="
+          find tests -name 'test_*.py' -exec ls -la {} + 2>/dev/null || echo "No test files found"
+
+      - name: Run tests with pytest
+        run: |
+          python -m pytest tests/ -v --tb=short
+
+      - name: Test summary
+        if: always()
+        run: |
+          echo "=== RDD Status ==="
+          REQ_COUNT=$(find docs/requirements -name 'req_*.md' 2>/dev/null | wc -l)
+          TEST_COUNT=$(find tests -name 'test_*.py' 2>/dev/null | wc -l)
+          SRC_COUNT=$(find src -name '*.py' 2>/dev/null | wc -l)
+          echo "Requirements: $REQ_COUNT files"
+          echo "Tests: $TEST_COUNT files"
+          echo "Source: $SRC_COUNT files"
