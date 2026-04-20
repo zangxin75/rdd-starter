@@ -26,10 +26,24 @@ git init
 
 ```bash
 cd ~/.claude/plugins/
-git clone <rdd-workflow-plugin-url> rdd-workflow
+git clone https://github.com/zangxin75/rdd-workflow.git rdd-workflow
 ```
 
-### 3. Start Developing
+### 3. Enable the Plugin
+
+Add the plugin to your Claude Code settings (`~/.claude/settings.json`):
+
+```json
+{
+  "enabledPlugins": {
+    "rdd-workflow@local": true
+  }
+}
+```
+
+Then **restart Claude Code** for the plugin to take effect.
+
+### 4. Start Developing
 
 In Claude Code:
 
